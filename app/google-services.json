@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "879599629344",
+    "firebase_url": "https://finalsattendanceapp.firebaseio.com",
+    "project_id": "finalsattendanceapp",
+    "storage_bucket": "finalsattendanceapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879599629344:android:ff492bf6dd11a506",
+        "android_client_info": {
+          "package_name": "com.example.asus.finalsattendanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879599629344-mv82kg77mdqem3vc9vig9rt30blt5tjd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asus.finalsattendanceapp",
+            "certificate_hash": "86b95a99b59555fecbf856306460c5d50d00c94b"
+          }
+        },
+        {
+          "client_id": "879599629344-8af0bc3se3vnutg9h3jnnsoa94qlggpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIxzZespfDCV11vIcJxwZI_mdF-hZ20hE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879599629344-8af0bc3se3vnutg9h3jnnsoa94qlggpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
