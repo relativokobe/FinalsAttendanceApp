@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.asus.finalsattendanceapp.Models.StudentModel;
+import com.example.asus.finalsattendanceapp.Student.StudentHome;
 import com.firebase.client.Firebase;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,16 +35,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
     com.google.android.gms.common.SignInButton signIn;
-
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
         mAuth = FirebaseAuth.getInstance();
-        firebase = new Firebase("https://finalsattendanceapp.firebaseio.com/Kobe");
-        firebase.push().setValue("kobe");
+        firebase = new Firebase("https://finalsattendanceapp.firebaseio.com/Students");
+
 
         signIn = (com.google.android.gms.common.SignInButton)findViewById(R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -52,10 +57,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+        button = (Button)findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,AhdzHome.class));
+            }
+        });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("879599629344-8af0bc3se3vnutg9h3jnnsoa94qlggpo.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -68,7 +82,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    //paraPersistent man d i diri
+
+                    String name = user.getDisplayName();
+                    String email = user.getEmail();
+                    String id = user.getUid();
+                    String uri = user.getPhotoUrl().toString();
+                    StudentModel studentModel = new StudentModel(name,email,id,uri);
+                    firebase.child(user.getUid()).setValue(studentModel);
                     Log.d("kobe", "onAuthStateChanged:signed_in:" + user.getUid());
+                    startActivity(new Intent(MainActivity.this,StudentHome.class));
                 } else {
                     // User is signed out
                     Log.d("kobe", "onAuthStateChanged:signed_out");
@@ -77,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         };
     }
+
+
 
     @Override
     public void onStart() {
@@ -115,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
-                // ...
+                // ...//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }
     }
@@ -137,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(MainActivity.this, "Kobe Gwapo signed in!", Toast.LENGTH_SHORT).show();
+
                         }
                         // ...
                     }

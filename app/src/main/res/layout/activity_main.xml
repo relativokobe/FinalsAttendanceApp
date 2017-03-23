@@ -22,5 +22,17 @@
         android:layout_marginLeft="107dp"
         android:layout_marginStart="107dp" />
 
+    <Button
+        android:text="AhdzLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_marginTop="71dp"
+        android:layout_alignTop="@+id/sign_in_button"
+        android:layout_alignRight="@+id/sign_in_button"
+        android:layout_alignEnd="@+id/sign_in_button"
+        android:layout_alignLeft="@+id/sign_in_button"
+        android:layout_alignStart="@+id/sign_in_button" />
+
 
 </RelativeLayout>
