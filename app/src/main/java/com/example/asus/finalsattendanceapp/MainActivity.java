@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Firebase.setAndroidContext(this);
         mAuth = FirebaseAuth.getInstance();
         firebase = new Firebase("https://finalsattendanceapp.firebaseio.com/Students");
-
+        mAuth.signOut();
 
         signIn = (com.google.android.gms.common.SignInButton)findViewById(R.id.sign_in_button);
         signIn.setOnClickListener(new View.OnClickListener() {

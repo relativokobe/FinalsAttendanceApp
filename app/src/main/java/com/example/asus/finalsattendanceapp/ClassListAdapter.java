@@ -56,6 +56,15 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.View
             date = (TextView)itemView.findViewById(R.id.Date);
             starTime = (TextView)itemView.findViewById(R.id.startTime);
             endTime = (TextView)itemView.findViewById(R.id.endTime);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
+
+
     }
 }

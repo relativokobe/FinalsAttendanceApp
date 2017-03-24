@@ -1,6 +1,7 @@
 package com.example.asus.finalsattendanceapp;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,13 +10,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.asus.finalsattendanceapp.Models.StudentModel;
 import com.example.asus.finalsattendanceapp.Student.StudentListAdapter;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -27,7 +34,10 @@ public class AhdzHomeFragmentProfileAndStudents extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     Firebase firebase;
     RecyclerView.Adapter adapter;
+    ImageView im;
     ArrayList<StudentModel> list;
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
 
     public AhdzHomeFragmentProfileAndStudents() {
         // Required empty public constructor
@@ -39,8 +49,16 @@ public class AhdzHomeFragmentProfileAndStudents extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
+        storageReference = FirebaseStorage.getInstance().getReference();
         final View view = inflater.inflate(R.layout.fragment_ahdz_home_fragment_profile_and_students, container, false);
+        im = (ImageView)view.findViewById(R.id.imageView2);
+
+        storageReference.child("Ahdz/pp.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(getActivity()).load(uri).into(im);
+            }
+        });
 
         firebase = new Firebase("https://finalsattendanceapp.firebaseio.com/Students");
         final RecyclerView listView = (RecyclerView) view.findViewById(R.id.listView);

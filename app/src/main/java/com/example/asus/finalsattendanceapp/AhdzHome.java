@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.asus.finalsattendanceapp.Fragments.CreateSession;
+import com.google.firebase.storage.StorageReference;
 
 public class AhdzHome extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class AhdzHome extends AppCompatActivity {
     FloatingActionButton fab;
     FragmentManager fm;
     TabLayout tab;
+    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

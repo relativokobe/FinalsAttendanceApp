@@ -40,6 +40,8 @@ public class CreateSession extends DialogFragment {
     String SelectedDate;
     String startTimeTx;
     String endTimeTx;
+    String am_pmStart;
+    String am_pmEnd;
     int hrsAfter, minAfter;
     int hrs, min;
     int m, d, y;
@@ -117,11 +119,16 @@ public class CreateSession extends DialogFragment {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if(hourOfDay < 12){
+                            am_pmStart = "AM";
+                        }else{
+                            am_pmStart = "PM";
+                        }
 
                         hrs = hourOfDay;
                         min = minute;
-                        start.setText(hrs+":"+min);
-                        startTimeTx = hrs+":"+min;
+                        start.setText(hrs+":"+min+" "+am_pmStart);
+                        startTimeTx = hrs+":"+min+" "+am_pmStart;
                         /*timePicker.setHour(hrs);
                         timePicker.setMinute(min);*/
 
@@ -140,10 +147,16 @@ public class CreateSession extends DialogFragment {
                 TimePickerDialog tpd = new TimePickerDialog(v.getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if(hourOfDay < 12){
+                            am_pmStart = "AM";
+                        }else{
+                            am_pmStart = "PM";
+                        }
                         hrsAfter = hourOfDay;
                         minAfter = minute;
                         end.setText(hrsAfter+":"+minAfter);
-                        endTimeTx = hrsAfter+":"+minAfter;
+                        endTimeTx = hrsAfter+":"+minAfter+" "+am_pmStart;
+
                     }
                 }, hrs, min, false);
                 tpd.show();

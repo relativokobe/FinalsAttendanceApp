@@ -69,4 +69,7 @@ public class SessionModelWithType {
         this.id = id;
         this.type = type;
     }
+    public SessionModelWithType(){
+
+    }
 }

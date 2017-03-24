@@ -23,7 +23,14 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,29 +66,45 @@ public class StudentClassList extends Fragment {
         studentSessions = new Firebase("https://finalsattendanceapp.firebaseio.com/StudentSession");
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        doneSessions.addChildEventListener(new ChildEventListener() {
+        studentSessionQ = studentSessions.child(userId);
+        studentSessionQ.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SessionModel sm = dataSnapshot.getValue(SessionModel.class);
-                sessionModels.add(sm);
-                studentSessionQ = studentSessions.child(sm.getId()).child(userId).orderByChild("type");
-                studentSessionQ.addValueEventListener(new ValueEventListener() {
+                SessionModelWithType type = dataSnapshot.getValue(SessionModelWithType.class);
+                sessionModelWithTypes.add(type);
+                //ayoha diri kay ang tanan sessions ang i butang fuck
+                Collections.sort(sessionModelWithTypes, new Comparator<SessionModelWithType>() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                    Type type = dataSnapshot.getValue(Type.class);
-                        types.add(type);
-                        Log.e("ruby","type niyaaa "+type);
-                        if(sessionModels.size() == types.size()){
-                            start(view);
+                    public int compare(SessionModelWithType o1, SessionModelWithType o2) {
+                        SimpleDateFormat format = new SimpleDateFormat(
+                                "dd-MM-yyyy");
+                        int compareResult = 0;
+                        try{
+                            Date date1 = format.parse(o1.getDate());
+                            Date date2 = format.parse(o2.getDate());
+                            compareResult = date2.compareTo(date1);
+                            if(compareResult==0){
+                                compareResult = 1;
+                            }else if(compareResult == 1){
+                                compareResult = 0;
+                            }
+                        }catch (Exception e){
+                            compareResult = o2.getDate().compareTo(o1.getDate());
+                            if(compareResult==0){
+                                compareResult = 1;
+                            }else if(compareResult == 1){
+                                compareResult = 0;
+                            }
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
+                        return compareResult;
                     }
                 });
+
+                Log.e("ruby","type niyaaa "+type.getType());
+                Log.e("ruby","sessionModelTypes = "+sessionModelWithTypes.size()+"session model size ="+sessionModels.size());
+                if(sessionModelWithTypes.size()> 0){
+                    start(view);
+                }
             }
 
             @Override
@@ -110,7 +133,7 @@ public class StudentClassList extends Fragment {
         RecyclerView listView = (RecyclerView)rootview.findViewById(R.id.listView);
         layoutManager = new LinearLayoutManager(rootview.getContext());
         listView.setLayoutManager(layoutManager);
-        adapter = new StudentClassListAdapter(sessionModels,types,rootview.getContext());
+        adapter = new StudentClassListAdapter(sessionModels,sessionModelWithTypes,rootview.getContext());
         listView.setAdapter(adapter);
     }
 
