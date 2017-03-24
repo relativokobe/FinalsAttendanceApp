@@ -8,15 +8,15 @@
     tools:context="com.example.asus.finalsattendanceapp.Student.StudentHome">
 
 
-
     <android.support.design.widget.TabLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="top"
-        app:tabTextColor="#000000"
-        app:tabIndicatorColor="#FFA500"
-        app:tabSelectedTextColor="#000000"/>
+        android:background="@android:color/holo_orange_dark"
+        app:tabIndicatorColor="@android:color/background_dark"
+        app:tabSelectedTextColor="#000000"
+        app:tabTextColor="#000000" />
 
     <FrameLayout
         android:id="@+id/frame"
@@ -25,6 +25,17 @@
         android:layout_below="@id/tab">
 
     </FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/Fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout_gravity=""
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/logout"
+        />
 
 
 

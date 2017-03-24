@@ -53,7 +53,7 @@ public class AhdzHomeFragmentProfileAndStudents extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_ahdz_home_fragment_profile_and_students, container, false);
         im = (ImageView)view.findViewById(R.id.imageView2);
 
-        storageReference.child("Ahdz/pp.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("Ahdz/ahdz.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                if(uri != null) {

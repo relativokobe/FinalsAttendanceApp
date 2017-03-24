@@ -5,14 +5,7 @@
     tools:context="com.example.asus.finalsattendanceapp.Student.AttendSessionFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/text"
-        android:text="@string/hello_blank_fragment"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <TextView
         android:layout_width="wrap_content"

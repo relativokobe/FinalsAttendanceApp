@@ -6,33 +6,42 @@
     tools:context="com.example.asus.finalsattendanceapp.AhdzHomeFragmentProfileAndStudents">
 
     <!-- TODO: Update blank fragment layout -->
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/inside">
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="12dp"
-        android:id="@+id/imageView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="AhdzLeeBee Formentera"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/inside"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="35dp"
-        android:id="@+id/ahdzName"
-        android:textSize="20sp" />
-</RelativeLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/darker_gray"
+
+        android:backgroundTint="@android:color/background_light"
+        android:elevation="5dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/ahdzName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_toRightOf="@+id/imageView2"
+            android:text="AhdzLeeBee Formentera"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listView"
@@ -42,14 +51,16 @@
         android:paddingTop="10dp"/>
 
     <TextView
-        android:text="Your Mobile 2 Students "
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:id="@+id/textView2"
-        android:textSize="20sp"
         android:layout_below="@+id/inside"
-        android:layout_centerHorizontal="true" />
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Your Mobile 2 Students "
+        android:textAllCaps="true"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

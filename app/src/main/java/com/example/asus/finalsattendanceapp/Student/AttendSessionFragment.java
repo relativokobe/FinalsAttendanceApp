@@ -1,6 +1,7 @@
 package com.example.asus.finalsattendanceapp.Student;
 
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -105,7 +106,7 @@ public class AttendSessionFragment extends Fragment {
             endTimeText = getArguments().getString("timEnd");
 
             id = getArguments().getString("sessionID");
-            TextView text = (TextView) view.findViewById(R.id.text);
+          //  TextView text = (TextView) view.findViewById(R.id.text);
             date = (TextView)view.findViewById(R.id.date);
             startTime = (TextView)view.findViewById(R.id.startTime);
             endTime = (TextView)view.findViewById(R.id.endTime);
@@ -114,7 +115,7 @@ public class AttendSessionFragment extends Fragment {
             startTime.setText("start time: "+startTimeText);
             endTime.setText("end time:"+endTimeText);
 
-            text.setText(id+" = ID pisteng yawa");
+//            text.setText(id+" = ID pisteng yawa");
         }
 
        dateofSession = dateText;
@@ -197,7 +198,9 @@ public class AttendSessionFragment extends Fragment {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "CATCH", Toast.LENGTH_SHORT).show();
                 }
-
+                Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.frame,new StudentClassList()).commit();
             }else{
                 Toast.makeText(getActivity(), "Not allowed to Attend", Toast.LENGTH_SHORT).show();
             }

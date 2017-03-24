@@ -66,14 +66,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(this);
+
         mAuth = FirebaseAuth.getInstance();
         firebase = new Firebase("https://finalsattendanceapp.firebaseio.com/Students");
-        mAuth.signOut();
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
+                Log.e("piste","lat = "+location.getLatitude() + "lang "+location.getLongitude());
+                Toast.makeText(MainActivity.this, "lat = "+location.getLatitude() + "lang "+location.getLongitude(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.INTERNET
                 },10);
+            }else{
+                configureButton();
             }
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -108,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
 
 
 
@@ -121,10 +126,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+
         button = (Button)findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
                 startActivity(new Intent(MainActivity.this,AhdzHome.class));
             }
         });
@@ -192,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
     public void configureButton(){
-
+        locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,11 +1,16 @@
 package com.example.asus.finalsattendanceapp.Student;
 
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.support.design.widget.TabLayout;
+import android.widget.Toast;
 
+import com.example.asus.finalsattendanceapp.MainActivity;
 import com.example.asus.finalsattendanceapp.R;
 import com.example.asus.finalsattendanceapp.Student.StudentClassList;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +27,18 @@ FragmentManager fm;
         getSupportActionBar().hide();
         setContentView(R.layout.activity_student_home);
         TabLayout tab = (TabLayout)findViewById(R.id.tab);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.Fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(StudentHome.this, "Log out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(StudentHome.this, MainActivity.class);
+                FirebaseAuth.getInstance().signOut();
+                startActivity(intent);
+
+            }
+        });
 
 
         fm = getFragmentManager();
@@ -29,7 +46,6 @@ FragmentManager fm;
 
         tab.addTab(tab.newTab().setText("Class"));
         tab.addTab(tab.newTab().setText("Upcoming Classes"));
-        tab.addTab(tab.newTab().setText("Me"));
 
 
         fm.beginTransaction().add(new StudentClassList(),"Class").commit();

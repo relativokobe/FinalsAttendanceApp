@@ -19,9 +19,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.asus.finalsattendanceapp.Models.SessionModel;
 import com.example.asus.finalsattendanceapp.R;
 import com.firebase.client.Firebase;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -50,6 +56,8 @@ public class CreateSession extends DialogFragment {
     int hrs, min;
     int m, d, y;
 
+    RequestQueue requestQueue;
+
     String [] dates = {
             "January",
             "February",
@@ -75,6 +83,7 @@ public class CreateSession extends DialogFragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_create_session, container, false);
 
+        requestQueue = Volley.newRequestQueue(getActivity());
         dateButton = (Button)view.findViewById(R.id.button4);
         startTime = (Button)view.findViewById(R.id.button5);
         create = (Button)view.findViewById(R.id.OK);
@@ -173,6 +182,13 @@ public class CreateSession extends DialogFragment {
             @Override
             public void onClick(View v) {
 
+               /* JsonObjectRequest request = new JsonObjectRequest("https://maps.googleapis.com/maps/api/geocode/json?"+lat+","
+                +lang+"&key=AIzaSyDSbSU-uPu9qis3BJRRGrdiLaDQBW7UYdg", new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                });*/
                 Firebase activityID = firebase.push();
                 SessionModel sessionModel = new SessionModel(SelectedDate,startTimeTx,endTimeTx,"Banawa",activityID.getKey());
 
