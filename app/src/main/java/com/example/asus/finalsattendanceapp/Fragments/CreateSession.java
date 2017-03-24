@@ -4,6 +4,8 @@ package com.example.asus.finalsattendanceapp.Fragments;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -27,6 +29,8 @@ import java.util.Calendar;
 public class CreateSession extends DialogFragment {
 
 
+    private LocationManager locationManager;
+    private LocationListener locationListener;
     Firebase firebase;
     Firebase upComing;
     TimePicker timePicker;
@@ -82,6 +86,8 @@ public class CreateSession extends DialogFragment {
         upComing = new Firebase("https://finalsattendanceapp.firebaseio.com/UpcomingSession");
 
         getDialog().setTitle("Create Session Mr AhdzLeeBee");
+
+
 
 
 

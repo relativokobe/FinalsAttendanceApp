@@ -17,7 +17,11 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +55,32 @@ public class Upcomingclass extends Fragment {
                 SessionModel sm = dataSnapshot.getValue(SessionModel.class);
                 upComingSessions.add(sm);
                 Log.e("kobe","size = "+upComingSessions.size());
-
+                Collections.sort(upComingSessions,new Comparator<SessionModel>() {
+                    @Override
+                    public int compare(SessionModel o1, SessionModel o2) {
+                        SimpleDateFormat format = new SimpleDateFormat(
+                                "dd-MM-yyyy");
+                        int compareResult = 0;
+                        try{
+                            Date date1 = format.parse(o1.getDate());
+                            Date date2 = format.parse(o2.getDate());
+                            compareResult = date2.compareTo(date1);
+                            if(compareResult==0){
+                                compareResult = 1;
+                            }else if(compareResult == 1){
+                                compareResult = 0;
+                            }
+                        }catch (Exception e){
+                            compareResult = o2.getDate().compareTo(o1.getDate());
+                            if(compareResult==0){
+                                compareResult = 1;
+                            }else if(compareResult == 1){
+                                compareResult = 0;
+                            }
+                        }
+                        return compareResult;
+                    }
+                });
 
                 layoutManager = new LinearLayoutManager(view.getContext());
                 listView.setLayoutManager(layoutManager);

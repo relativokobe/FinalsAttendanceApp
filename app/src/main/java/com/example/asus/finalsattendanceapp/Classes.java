@@ -87,7 +87,7 @@ Firebase firebase;
                // Log.e("ruby","syd "+list.get(0).getTimeEnd()+" size = "+list.size());
                 layoutManager = new LinearLayoutManager(view.getContext());
                 listView.setLayoutManager(layoutManager);
-                adapter = new ClassListAdapter(list);
+                adapter = new ClassListAdapter(list,view.getContext());
                 listView.setAdapter(adapter);
 
             }

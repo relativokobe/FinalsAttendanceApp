@@ -56,7 +56,9 @@ public class AhdzHomeFragmentProfileAndStudents extends Fragment {
         storageReference.child("Ahdz/pp.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getActivity()).load(uri).into(im);
+               if(uri != null) {
+                   Glide.with(getActivity()).load(uri).into(im);
+               }
             }
         });
 

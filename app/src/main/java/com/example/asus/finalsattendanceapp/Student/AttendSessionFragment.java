@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.asus.finalsattendanceapp.Models.SessionModel;
 import com.example.asus.finalsattendanceapp.Models.SessionModelWithType;
+import com.example.asus.finalsattendanceapp.Models.UserPhoto;
 import com.example.asus.finalsattendanceapp.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,11 +35,15 @@ public class AttendSessionFragment extends Fragment {
     String startTimeText;
     String ampm;
 
+    String url;
+    String name;
+
     Firebase studSess;
     Firebase late;
     Firebase present;
     Firebase Absent;
     Firebase done;
+    Firebase sesStud;
 
     String yearOfSession;
     String dayOfSession;
@@ -78,11 +83,15 @@ public class AttendSessionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_attend_session, container, false);
 
 
+        url = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
+        name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
         studSess = new Firebase("https://finalsattendanceapp.firebaseio.com/StudentSession");
         present = new Firebase("https://finalsattendanceapp.firebaseio.com/SessionAttendancePresent");
         late = new Firebase("https://finalsattendanceapp.firebaseio.com/SessionAttendanceLate");
         Absent = new Firebase("https://finalsattendanceapp.firebaseio.com/SessionAttendanceAbsent");
         done = new Firebase("https://finalsattendanceapp.firebaseio.com/DoneSession");
+        sesStud = new Firebase("https://finalsattendanceapp.firebaseio.com/SessionStudent");
         attend = (Button)view.findViewById(R.id.button);
         date = (TextView)view.findViewById(R.id.date);
         startTime = (TextView)view.findViewById(R.id.startTime);
@@ -151,22 +160,38 @@ public class AttendSessionFragment extends Fragment {
                     Date start = parser.parse(startTimeText);
                     Date curr = parser.parse(currentTime);
 
-                    if (curr.after(start)) {//meaning late
+                    if (curr.after(start) && curr.before(end)) {//meaning late
                         SessionModelWithType sm = new SessionModelWithType(dateText, startTimeText, endTimeText, locationText, id, "late");
                         studSess.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(id).setValue(sm);
-                        late.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .child("name").setValue(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                        UserPhoto userPhoto = new UserPhoto(name,url);
+                        sesStud.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(sm);
 
-                    } else {
+                        late.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userPhoto);
+
+                        Log.e("kobee","");
+
+                    } else if(curr.before(start)){
                         SessionModelWithType sm = new SessionModelWithType(dateText, startTimeText, endTimeText, locationText, id, "present");
                         studSess.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(id).setValue(sm);
+                        UserPhoto userPhoto = new UserPhoto(name,url);
+                        sesStud.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(sm);
                         present.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .child("name").setValue(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                .setValue(userPhoto);
+
+                    } else if(curr.after(start) && curr.after(end)){
+                        SessionModelWithType sm = new SessionModelWithType(dateText, startTimeText, endTimeText, locationText, id, "absent");
+                        studSess.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(id).setValue(sm);
+                        UserPhoto userPhoto = new UserPhoto(name,url);
+                        sesStud.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(sm);
+                        Absent.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userPhoto);
 
                     }
 
                     SessionModel sm = new SessionModel(dateText, startTimeText, endTimeText, locationText, id);
                     done.child(id).setValue(sm);
+
+
+
 
                 } catch (ParseException e) {
                     e.printStackTrace();

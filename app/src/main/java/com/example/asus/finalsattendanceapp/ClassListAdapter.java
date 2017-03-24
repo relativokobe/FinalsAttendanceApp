@@ -1,6 +1,9 @@
 package com.example.asus.finalsattendanceapp;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,9 +25,10 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.View
     Context context;
     ArrayList<SessionModel> list;
 
-    public ClassListAdapter(ArrayList<SessionModel>sessionModels){
+    public ClassListAdapter(ArrayList<SessionModel>sessionModels, Context context){
 
         this.list = sessionModels;
+        this.context = context;
         Log.e("ruby",list.size()+" size ");
     }
     @Override
@@ -60,6 +64,20 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    FragmentManager fm = ((Activity)context).getFragmentManager();
+
+                    ClassInfoAhdz classInfoAhdz = new ClassInfoAhdz();
+                    Bundle args = new Bundle();
+
+                    args.putString("sessionID",list.get(getAdapterPosition()).getId());
+                    args.putString("date",list.get(getAdapterPosition()).getDate());
+                    args.putString("location",list.get(getAdapterPosition()).getLocation());
+                    args.putString("timeStart",list.get(getAdapterPosition()).getTimeStart());
+                    args.putString("timEnd",list.get(getAdapterPosition()).getTimeEnd());
+                    Log.e("ruby",list.get(getAdapterPosition()).getTimeEnd()+" = end time");
+
+                    classInfoAhdz.setArguments(args);
+                    fm.beginTransaction().replace(R.id.frame,classInfoAhdz).commit();
 
                 }
             });

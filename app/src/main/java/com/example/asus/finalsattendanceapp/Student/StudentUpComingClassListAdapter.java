@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.asus.finalsattendanceapp.ClassListAdapter;
 import com.example.asus.finalsattendanceapp.Models.SessionModel;
 import com.example.asus.finalsattendanceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -76,6 +77,7 @@ public class StudentUpComingClassListAdapter extends RecyclerView.Adapter<Studen
                     args.putString("location",list.get(getAdapterPosition()).getLocation());
                     args.putString("timeStart",list.get(getAdapterPosition()).getTimeStart());
                     args.putString("timEnd",list.get(getAdapterPosition()).getTimeEnd());
+
                     Log.e("ruby",list.get(getAdapterPosition()).getTimeEnd()+" = end time");
 
                     attendSessionFragment.setArguments(args);
