@@ -77,7 +77,7 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.View
                     Log.e("ruby",list.get(getAdapterPosition()).getTimeEnd()+" = end time");
 
                     classInfoAhdz.setArguments(args);
-                    fm.beginTransaction().replace(R.id.frame,classInfoAhdz).commit();
+                    fm.beginTransaction().replace(R.id.frame,classInfoAhdz).addToBackStack(null).commit();
 
                 }
             });

@@ -95,11 +95,11 @@ public class ClassInfoAhdz extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0){
-                    fm.beginTransaction().replace(R.id.fram2,ontime).commit();
+                    fm.beginTransaction().replace(R.id.fram2,ontime).addToBackStack(null).commit();
                 }else if(tab.getPosition() == 1){
-                    fm.beginTransaction().replace(R.id.fram2,late).commit();
+                    fm.beginTransaction().replace(R.id.fram2,late).addToBackStack(null).commit();
                 }else if(tab.getPosition() == 2){
-                    fm.beginTransaction().replace(R.id.fram2,absent).commit();
+                    fm.beginTransaction().replace(R.id.fram2,absent).addToBackStack(null).commit();
                 }
             }
 

@@ -166,7 +166,6 @@ public class AttendSessionFragment extends Fragment {
                         studSess.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(id).setValue(sm);
                         UserPhoto userPhoto = new UserPhoto(name,url);
                         sesStud.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(sm);
-
                         late.child(id).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userPhoto);
 
                         Log.e("kobee","");

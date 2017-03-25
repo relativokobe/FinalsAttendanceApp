@@ -39,6 +39,7 @@
             android:layout_toEndOf="@+id/imageView2"
             android:layout_toRightOf="@+id/imageView2"
             android:text="AhdzLeeBee Formentera"
+            android:fontFamily="sans-serif"
             android:textAllCaps="true"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -59,6 +60,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:text="Your Mobile 2 Students "
+        android:fontFamily="sans-serif"
         android:textAllCaps="true"
         android:textSize="20sp" />
 
